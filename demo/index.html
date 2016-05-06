@@ -35,7 +35,10 @@
     <script>
         var editor = new MediumEditor('.editable', {
             buttonLabels: 'fontawesome',
-            japaneseIME: true
+            japaneseIME: true,
+            toolbar: {
+                withClassName: 'my-custom-classname-is-this'
+            }
         }),
         cssLink = document.getElementById('medium-editor-theme');
 
