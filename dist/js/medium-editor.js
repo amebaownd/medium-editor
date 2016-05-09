@@ -5398,7 +5398,7 @@ MediumEditor.extensions = {};
 
         init: function () {
             MediumEditor.Extension.prototype.init.apply(this, arguments);
-
+            this.preventCheckState = false;
             this.initThrottledMethods();
 
             if (!this.relativeContainer) {
@@ -5539,6 +5539,9 @@ MediumEditor.extensions = {};
             // Updating the state of the toolbar as things change
             this.subscribe('editableClick', this.handleEditableClick.bind(this));
             this.subscribe('editableKeyup', this.handleEditableKeyup.bind(this));
+            if (this.base.options.japaneseIME) {
+                this.subscribe('editableKeydown', this.handleEditableKeydown.bind(this));
+            }
 
             // Handle mouseup on document for updating the selection in the toolbar
             this.on(this.document.documentElement, 'mouseup', this.handleDocumentMouseup.bind(this));
@@ -5580,7 +5583,17 @@ MediumEditor.extensions = {};
         },
 
         handleEditableKeyup: function () {
-            this.checkState();
+            if (!this.preventCheckState) {
+                this.checkState();
+            }
+        },
+
+        handleEditableKeydown: function (e) {
+            if (this.base.options.japaneseIME && e.keyCode === 229) {
+                this.preventCheckState = true;
+            } else {
+                this.preventCheckState = false;
+            }
         },
 
         handleBlur: function () {
