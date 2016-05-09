@@ -35,12 +35,16 @@ describe('MediumEditor.extensions.toolbar TestCase', function () {
             expect(document.querySelectorAll('.medium-editor-toolbar').length).toBe(0);
             var editor = this.newMediumEditor('.editor', {
                     toolbar: {
-                        withClassName: 'my-custom-classname'
+                        classList: [
+                            'my-custom-classname-a',
+                            'my-custom-classname-b'
+                        ]
                     }
                 }),
                 toolbar = editor.getExtensionByName('toolbar').getToolbarElement();
             expect(toolbar.className).toMatch(/medium-editor-toolbar/);
-            expect(toolbar.className).toMatch(/my-custom-classname/);
+            expect(toolbar.className).toMatch(/my-custom-classname-a/);
+            expect(toolbar.className).toMatch(/my-custom-classname-b/);
             expect(document.querySelectorAll('.medium-editor-toolbar').length).toBe(1);
         });
 
