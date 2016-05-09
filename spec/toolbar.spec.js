@@ -38,7 +38,7 @@ describe('MediumEditor.extensions.toolbar TestCase', function () {
                         withClassName: 'my-custom-classname'
                     }
                 }),
-                toolbar = editor.toolbar.getToolbarElement();
+                toolbar = editor.getExtensionByName('toolbar').getToolbarElement();
             expect(toolbar.className).toMatch(/medium-editor-toolbar/);
             expect(toolbar.className).toMatch(/my-custom-classname/);
             expect(document.querySelectorAll('.medium-editor-toolbar').length).toBe(1);
