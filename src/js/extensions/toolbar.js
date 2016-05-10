@@ -79,6 +79,11 @@
          */
         relativeContainer: null,
 
+        /* classList [Array]
+         * An array of classNames (strings) to be added to the editor toolbar element.
+         */
+        classList: false,
+
         init: function () {
             MediumEditor.Extension.prototype.init.apply(this, arguments);
             this.preventCheckState = false;
@@ -108,6 +113,12 @@
 
             toolbar.id = 'medium-editor-toolbar-' + this.getEditorId();
             toolbar.className = 'medium-editor-toolbar';
+
+            if (this.classList) {
+                this.classList.forEach(function (className) {
+                    toolbar.classList.add(className);
+                });
+            }
 
             if (this.static) {
                 toolbar.className += ' static-toolbar';

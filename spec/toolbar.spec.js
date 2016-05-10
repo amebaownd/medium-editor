@@ -31,6 +31,23 @@ describe('MediumEditor.extensions.toolbar TestCase', function () {
             expect(document.querySelectorAll('.medium-editor-toolbar').length).toBe(1);
         });
 
+        it('should set custom className to the editor toolbar', function () {
+            expect(document.querySelectorAll('.medium-editor-toolbar').length).toBe(0);
+            var editor = this.newMediumEditor('.editor', {
+                    toolbar: {
+                        classList: [
+                            'my-custom-classname-a',
+                            'my-custom-classname-b'
+                        ]
+                    }
+                }),
+                toolbar = editor.getExtensionByName('toolbar').getToolbarElement();
+            expect(toolbar.className).toMatch(/medium-editor-toolbar/);
+            expect(toolbar.className).toMatch(/my-custom-classname-a/);
+            expect(toolbar.className).toMatch(/my-custom-classname-b/);
+            expect(document.querySelectorAll('.medium-editor-toolbar').length).toBe(1);
+        });
+
         it('should not create an anchor form element or anchor extension if anchor is not passed as a button', function () {
             expect(document.querySelectorAll('.medium-editor-toolbar-form-anchor').length).toBe(0);
             var editor = this.newMediumEditor('.editor', {
